@@ -8,7 +8,7 @@ ffibuilder.cdef('''
     char *strerror(int errnum);
 ''')
 
-ffibuilder.set_source("_openbsd",
+ffibuilder.set_source("openbsd._openbsd",
 """
     #include <unistd.h>
     #include <string.h>

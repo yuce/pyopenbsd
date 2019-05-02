@@ -1,7 +1,7 @@
 
 import sys
 from cffi import FFI
-from _openbsd import lib as _lib
+from ._openbsd import lib as _lib
 
 __all__ = ["pledge", "unveil"]
 
