@@ -6,7 +6,8 @@ Python bindings for some OpenBSD-specific APIs. Currently the following are supp
 
 ## Change Log
 
-* **v0.1.0** (2019-05-03)
+### v0.1.0 (2019-05-03)
+
     * Initial release.
 
 ## Installation
@@ -30,7 +31,7 @@ import openbsd
 ### pledge
 
 ```python
-pledge("stdio rpath")
+openbsd.pledge("stdio rpath")
 print(open("/etc/resolv.conf"))
 ```
 
@@ -39,11 +40,14 @@ Try removing `rpath` permission.
 ### unveil
 
 ```python
-unveil("/etc", "r")
+openbsd.unveil("/etc", "r")
 print(open("/etc/resolv.conf"))
 ```
 
-Try reading `/bin/ksh`.
+Try opening `/bin/ksh`.
+
+
+Use `openbsd.unveil()` to stop limiting access to directories.
 
 ## License
 
