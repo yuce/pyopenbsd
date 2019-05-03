@@ -46,8 +46,7 @@ print(open("/etc/resolv.conf"))
 
 Try opening `/bin/ksh`.
 
-
-Use `openbsd.unveil()` to stop limiting access to directories.
+Use `openbsd.unveil()` to lock down restrictions.
 
 ## License
 

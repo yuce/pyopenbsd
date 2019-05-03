@@ -7,7 +7,10 @@
 all: build
 
 build:
-	python setup.py build
+	python setup.py sdist
+
+release: clean build
+	twine upload dist/*
 
 clean:
 	rm -rf dist build openbsd.egg-info/
