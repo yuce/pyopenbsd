@@ -1,10 +1,10 @@
 
 import sys
+import os
 from cffi import FFI
 from ._openbsd import lib as _lib
 
 __all__ = ["pledge", "unveil"]
-
 _ffi = FFI()
 
 
@@ -14,7 +14,7 @@ def pledge(promises=None, execpromises=None):
     ret = _lib.pledge(promises, execpromises)
     if ret < 0:
         errno = _ffi.errno
-        raise OSError(errno, _decode(_ffi.string(_lib.strerror(errno), 256)))
+        raise OSError(errno, os.strerror(errno))
 
 
 def unveil(path=None, permissions=None):
@@ -23,7 +23,7 @@ def unveil(path=None, permissions=None):
     ret = _lib.unveil(path, permissions)
     if ret < 0:
         errno = _ffi.errno
-        raise OSError(errno, _decode(_ffi.string(_lib.strerror(errno), 256)))
+        raise OSError(errno, os.strerror(errno))
 
 
 if isinstance(b"openbsd", str):
@@ -32,17 +32,11 @@ if isinstance(b"openbsd", str):
         if isinstance(text, unicode):
             return text.encode("ascii")
         return text
-
-    def _decode(text):
-        return text
 else:
     # Python 3
     def _encode(text):
         if isinstance(text, str):
             return text.encode("ascii")
         return text
-
-    def _decode(text):
-        return text.decode("ascii")
 
 
