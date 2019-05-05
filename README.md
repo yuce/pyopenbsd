@@ -31,6 +31,8 @@ import openbsd
 
 ### pledge
 
+See: https://man.openbsd.org/pledge.2
+
 ```python
 openbsd.pledge("stdio rpath")
 print(open("/etc/resolv.conf"))
@@ -39,6 +41,8 @@ print(open("/etc/resolv.conf"))
 Try removing the`rpath permission.
 
 ### unveil
+
+See: https://man.openbsd.org/unveil.2
 
 ```python
 openbsd.unveil("/etc", "r")
