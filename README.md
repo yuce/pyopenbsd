@@ -1,6 +1,7 @@
 # openbsd
 
 Python bindings for some OpenBSD-specific APIs. Currently the following are supported:
+
 * `pledge`
 * `unveil`
 
@@ -35,7 +36,7 @@ openbsd.pledge("stdio rpath")
 print(open("/etc/resolv.conf"))
 ```
 
-Try removing `rpath` permission.
+Try removing the`rpath permission.
 
 ### unveil
 
@@ -47,6 +48,11 @@ print(open("/etc/resolv.conf"))
 Try opening `/bin/ksh`.
 
 Use `openbsd.unveil()` to lock down restrictions.
+
+
+## Similar Projects
+
+* [PyPledge](https://gitlab.com/i80and/pypledge): Python binding for the OpenBSD pledge(2) system call. Uses ctypes.
 
 ## License
 
