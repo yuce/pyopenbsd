@@ -9,6 +9,7 @@ from openbsd import pledge, unveil
 """
 A little utilty that pledges and unveils.
 python3 restrict.py rpath stdio /tmp/foo:r /bin/cat:x  -x cat /tmp/foo
+python3 restrict.py stdio rpath getpw tty /:r /bin/ls:x -x ls /usr
 """
 
 def extract_args(args):
