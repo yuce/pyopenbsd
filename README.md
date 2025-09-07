@@ -4,8 +4,13 @@ Python bindings for some OpenBSD-specific APIs. Currently the following are supp
 
 * `pledge`
 * `unveil`
+* `get_cpu_count` (via `sysctl`)
 
 ## Change Log
+
+### v0.2.0 (2025-09-07)
+
+    * Added the `get_cpu_count()` function
 
 ### v0.1.0 (2019-05-03)
 
@@ -25,18 +30,18 @@ Openbsd is on PyPI. You can install it using pip:
 ## Usage
 
 Import `openbsd` first:
-```python
+~~~python
 import openbsd
-```
+~~~
 
 ### pledge
 
 See: https://man.openbsd.org/pledge.2
 
-```python
+~~~python
 openbsd.pledge("stdio rpath")
 print(open("/etc/resolv.conf"))
-```
+~~~
 
 Try removing the`rpath permission.
 
@@ -44,14 +49,20 @@ Try removing the`rpath permission.
 
 See: https://man.openbsd.org/unveil.2
 
-```python
+~~~python
 openbsd.unveil("/etc", "r")
 print(open("/etc/resolv.conf"))
-```
+~~~
 
 Try opening `/bin/ksh`.
 
 Use `openbsd.unveil()` to lock down restrictions.
+
+### get_cpu_count
+
+~~~python
+cpu_count = openbsd.get_cpu_count()
+~~~
 
 
 ## Similar Projects
@@ -60,6 +71,6 @@ Use `openbsd.unveil()` to lock down restrictions.
 
 ## License
 
-(c) 2019 Yuce Tekol
+(c) 2019-2025 Yuce Tekol
 
 [BSD](LICENSE)

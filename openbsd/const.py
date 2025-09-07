@@ -1,0 +1,3 @@
+
+CTL_HW = 6
+HW_NCPU = 3

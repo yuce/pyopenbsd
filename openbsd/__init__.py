@@ -1,8 +1,12 @@
 
 import sys
 import os
+from typing import Any
+
 from cffi import FFI
-from ._openbsd import lib as _lib
+
+from openbsd._openbsd import lib as _lib
+from openbsd.const import CTL_HW, HW_NCPU
 
 __all__ = ["pledge", "unveil"]
 _ffi = FFI()
@@ -46,17 +50,31 @@ def unveil(path=None, permissions=None):
         raise OSError(errno, os.strerror(errno))
 
 
-if isinstance(b"openbsd", str):
-    # Python 2
-    def _encode(text):
-        if isinstance(text, unicode):
-            return text.encode("ascii")
-        return text
-else:
-    # Python 3
-    def _encode(text):
-        if isinstance(text, str):
-            return text.encode("ascii")
-        return text
+def _sysctl(mib: list[int], ret_type:str, ret_size:int, set_type=None, set_size=0) -> Any:
+    if set_type:
+        raise ValueError("set_type is not supported")
+    else:
+        set_type = _ffi.NULL
+    fmib = _ffi.new("int[]", mib)
+    value = _ffi.new(ret_type)
+    size = _ffi.new("size_t*", ret_size)
+    ret = _lib.sysctl(fmib, len(mib), value, size, set_type, set_size)
+    if ret < 0:
+        errno = _ffi.errno
+        raise OSError(errno, os.strerror(errno))
+    return value[0]
+    
+
+def get_cpu_count() -> int:
+    """Return CPU count."""
+    # TODO: find ptr_size auto
+    ptr_size = 8
+    return _sysctl([CTL_HW, HW_NCPU], "int*", ptr_size)
+
+
+def _encode(text):
+    if isinstance(text, str):
+        return text.encode("ascii")
+    return text
 
 
