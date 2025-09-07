@@ -1,0 +1,9 @@
+.venv/
+dist
+openbsd.egg-info/
+__pycache__
+
+*.pyc
+*.o
+*.so
+

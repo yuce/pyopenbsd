@@ -13,4 +13,5 @@ release: clean build
 	twine upload dist/*
 
 clean:
-	rm -rf dist build openbsd.egg-info/
+	rm -rf dist build openbsd.egg-info/ 
+	rm -rf openbsd/__pycache__ openbsd/_openbsd.c openbsd/*.o openbsd/*.so
